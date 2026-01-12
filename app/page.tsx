@@ -10,6 +10,7 @@ const personalProjects = [
   { name: 'Qosmia', url: 'https://www.qosmia.it/' },
   { name: 'Qolokio', url: 'https://www.qolokio.com/' },
   { name: 'Intervueo', url: 'https://www.intervueo.com/' },
+  { name: 'Data Story', url: 'https://data-pion.vercel.app/projects/data-story-video-system' },
 ];
 
 export default function Home() {
@@ -36,7 +37,7 @@ export default function Home() {
             description="A high-stakes AI decision interface where humans remain fully responsible. Designed to make uncertainty visible, enforce clear state transitions, and support correct decision-making in regulated environments."
             href="/decision-review"
             icon={<FileText size={24} />}
-            figmaUrl="https://figma.com"
+            figmaUrl="https://www.figma.com/design/fKbJQ5OSbDAPNCZ9RNdGPj/Regulated-AI-Decision-System?node-id=8-34&t=n6RYNyai18GpuDgO-1"
             onCaseStudy={() => setCaseStudyModal('AI Decision Review')}
           />
 
@@ -45,7 +46,7 @@ export default function Home() {
             description="A calm, single-page interface for reviewing AI-generated insights. Designed to help users understand what changed and why, without forcing decisions or overwhelming them with data."
             href="/insight-inbox"
             icon={<Inbox size={24} />}
-            figmaUrl="https://figma.com"
+            figmaUrl="https://www.figma.com/design/avJe5YBThCuhCjEbLerPWz/AI-Insight-Inbox?node-id=5-89&t=4aW7lBG0MAlfW6uN-1"
             onCaseStudy={() => setCaseStudyModal('Insight Inbox')}
           />
         </div>
