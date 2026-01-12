@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ActionType } from '../types';
 import { ChevronDown, Check } from 'react-feather';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ConfirmationModalProps {
   action: ActionType;
@@ -17,28 +18,30 @@ const reviewers = [
   { id: 'david', name: 'David Brown', role: 'Team Lead' },
 ];
 
-const modalContent: Record<ActionType, { title: string; message: string; confirmLabel: string; confirmClass: string }> = {
-  approve: {
-    title: 'Approve recommendation',
-    message: 'You are confirming this decision based on the AI recommendation and available information.',
-    confirmLabel: 'Approve Recommendation',
-    confirmClass: 'btn-approve',
-  },
-  reject: {
-    title: 'Reject recommendation',
-    message: 'This case will be escalated to a senior role. You will no longer be able to approve or reject it.',
-    confirmLabel: 'Reject Recommendation',
-    confirmClass: 'btn-reject',
-  },
-  review: {
-    title: 'Request review',
-    message: 'This case will be escalated for review. You will no longer be able to approve or reject this recommendation.',
-    confirmLabel: 'Request review',
-    confirmClass: 'btn-review-confirm',
-  },
-};
-
 export default function ConfirmationModal({ action, onConfirm, onClose }: ConfirmationModalProps) {
+  const { t } = useLanguage();
+
+  const modalContent: Record<ActionType, { title: string; message: string; confirmLabel: string; confirmClass: string }> = {
+    approve: {
+      title: t('dr.confirmApprove'),
+      message: t('dr.approveMessage'),
+      confirmLabel: t('dr.approveBtn'),
+      confirmClass: 'btn-approve',
+    },
+    reject: {
+      title: t('dr.confirmReject'),
+      message: t('dr.rejectMessage'),
+      confirmLabel: t('dr.rejectBtn'),
+      confirmClass: 'btn-reject',
+    },
+    review: {
+      title: t('dr.confirmReview'),
+      message: t('dr.reviewMessage'),
+      confirmLabel: t('dr.reviewBtn'),
+      confirmClass: 'btn-review-confirm',
+    },
+  };
+
   const content = modalContent[action];
   const [selectedReviewer, setSelectedReviewer] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -79,7 +82,7 @@ export default function ConfirmationModal({ action, onConfirm, onClose }: Confir
 
         {isReviewAction && (
           <div className="reviewer-select-container">
-            <label className="reviewer-label">Select a senior to review this case</label>
+            <label className="reviewer-label">{t('dr.selectReviewer')}</label>
             <div className="custom-dropdown" ref={dropdownRef}>
               <button
                 type="button"
@@ -92,7 +95,7 @@ export default function ConfirmationModal({ action, onConfirm, onClose }: Confir
                     <span className="dropdown-selected-role">{selectedReviewerData.role}</span>
                   </span>
                 ) : (
-                  <span className="dropdown-placeholder">Choose reviewer...</span>
+                  <span className="dropdown-placeholder">{t('dr.chooseReviewer')}</span>
                 )}
                 <ChevronDown size={16} className={`dropdown-chevron ${isDropdownOpen ? 'dropdown-chevron--open' : ''}`} />
               </button>
@@ -123,7 +126,7 @@ export default function ConfirmationModal({ action, onConfirm, onClose }: Confir
         <p className="modal-message">{content.message}</p>
         <div className="modal-actions">
           <button className="btn btn-close" onClick={onClose}>
-            Close
+            {t('btn.close')}
           </button>
           <button
             className={`btn ${content.confirmClass}`}

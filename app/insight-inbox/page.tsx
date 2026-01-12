@@ -5,61 +5,65 @@ import { Inbox, Trash2, ChevronDown, Check } from 'react-feather';
 import { Insight, InsightStatus } from '../types';
 import InsightCard from './InsightCard';
 import DetailsModal from './DetailsModal';
-
-const mockInsights: Insight[] = [
-  {
-    id: '1',
-    title: 'Increase in churn risk for Segment B',
-    summary: 'Churn probability increased by 18% compared to last week. Some engagement signals show variation across users in Segment B.',
-    confidence: 'Medium',
-    confidenceExplanation: 'Based on engagement patterns from the last 30 days.',
-    supportingSignals: [
-      'Decrease in weekly activity',
-      'Lower feature engagement',
-      'Increased inactivity',
-    ],
-    nextStep: 'Consider reviewing onboarding changes.',
-    status: 'new',
-  },
-  {
-    id: '2',
-    title: 'Increase in churn risk for Segment B',
-    summary: 'Churn probability increased by 18% compared to last week, driven by a consistent drop in weekly engagement across Segment B.',
-    confidence: 'High',
-    confidenceExplanation: 'Strong correlation with historical churn patterns.',
-    supportingSignals: [
-      'Decrease in weekly activity',
-      'Lower feature engagement',
-      'Increased inactivity',
-    ],
-    nextStep: 'Consider reviewing onboarding changes.',
-    status: 'saved',
-  },
-  {
-    id: '3',
-    title: 'Increase in churn risk for Segment B',
-    summary: 'Early indicators suggest a potential increase in churn risk, but recent user activity is inconsistent.',
-    confidence: 'Low',
-    confidenceExplanation: 'Limited data available for this segment.',
-    supportingSignals: [
-      'Decrease in weekly activity',
-      'Lower feature engagement',
-      'Increased inactivity',
-    ],
-    nextStep: 'Consider reviewing onboarding changes.',
-    status: 'saved',
-  },
-];
+import LanguageToggle from '../components/LanguageToggle';
+import { useLanguage } from '../context/LanguageContext';
 
 type FilterPeriod = 'today' | 'last7days';
 type ViewFilter = 'active' | 'dismissed';
 
-const viewFilterOptions: { value: ViewFilter; label: string }[] = [
-  { value: 'active', label: 'Active' },
-  { value: 'dismissed', label: 'Dismissed' },
-];
-
 export default function InsightInboxPage() {
+  const { t } = useLanguage();
+
+  const mockInsights: Insight[] = [
+    {
+      id: '1',
+      title: t('ii.insight1.title'),
+      summary: t('ii.insight1.summary'),
+      confidence: 'Medium',
+      confidenceExplanation: t('ii.insight1.explanation'),
+      supportingSignals: [
+        t('ii.insight1.signal1'),
+        t('ii.insight1.signal2'),
+        t('ii.insight1.signal3'),
+      ],
+      nextStep: t('ii.insight1.nextStep'),
+      status: 'new',
+    },
+    {
+      id: '2',
+      title: t('ii.insight2.title'),
+      summary: t('ii.insight2.summary'),
+      confidence: 'High',
+      confidenceExplanation: t('ii.insight2.explanation'),
+      supportingSignals: [
+        t('ii.insight1.signal1'),
+        t('ii.insight1.signal2'),
+        t('ii.insight1.signal3'),
+      ],
+      nextStep: t('ii.insight1.nextStep'),
+      status: 'saved',
+    },
+    {
+      id: '3',
+      title: t('ii.insight3.title'),
+      summary: t('ii.insight3.summary'),
+      confidence: 'Low',
+      confidenceExplanation: t('ii.insight3.explanation'),
+      supportingSignals: [
+        t('ii.insight1.signal1'),
+        t('ii.insight1.signal2'),
+        t('ii.insight1.signal3'),
+      ],
+      nextStep: t('ii.insight1.nextStep'),
+      status: 'saved',
+    },
+  ];
+
+  const viewFilterOptions: { value: ViewFilter; label: string }[] = [
+    { value: 'active', label: t('ii.active') },
+    { value: 'dismissed', label: t('ii.dismissed') },
+  ];
+
   const [insights, setInsights] = useState<Insight[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedInsight, setSelectedInsight] = useState<Insight | null>(null);
@@ -131,8 +135,8 @@ export default function InsightInboxPage() {
     <div className="insight-inbox-container">
       <header className="insight-inbox-header">
         <div className="insight-inbox-header-left">
-          <h1 className="insight-inbox-title">Insight Inbox</h1>
-          <p className="insight-inbox-subtitle">Insights for today</p>
+          <h1 className="insight-inbox-title">{t('ii.title')}</h1>
+          <p className="insight-inbox-subtitle">{t('ii.subtitle')}</p>
         </div>
         <div className="insight-inbox-filters">
           <div className="insight-view-dropdown" ref={viewDropdownRef}>
@@ -142,7 +146,7 @@ export default function InsightInboxPage() {
               onClick={() => setIsViewDropdownOpen(!isViewDropdownOpen)}
             >
               <span className="insight-view-dropdown-label">
-                {viewFilter === 'active' ? 'Active' : `Dismissed${dismissedCount > 0 ? ` (${dismissedCount})` : ''}`}
+                {viewFilter === 'active' ? t('ii.active') : `${t('ii.dismissed')}${dismissedCount > 0 ? ` (${dismissedCount})` : ''}`}
               </span>
               <ChevronDown size={14} className={`insight-view-dropdown-chevron ${isViewDropdownOpen ? 'insight-view-dropdown-chevron--open' : ''}`} />
             </button>
@@ -173,13 +177,13 @@ export default function InsightInboxPage() {
             className={`insight-filter-btn ${filter === 'today' ? 'insight-filter-btn--active' : ''}`}
             onClick={() => setFilter('today')}
           >
-            Today
+            {t('ii.today')}
           </button>
           <button
             className={`insight-filter-btn ${filter === 'last7days' ? 'insight-filter-btn--active' : ''}`}
             onClick={() => setFilter('last7days')}
           >
-            Last 7 days
+            {t('ii.last7days')}
           </button>
         </div>
       </header>
@@ -201,12 +205,12 @@ export default function InsightInboxPage() {
               {viewFilter === 'dismissed' ? <Trash2 size={24} /> : <Inbox size={24} />}
             </div>
             <h3 className="insight-empty-state-title">
-              {viewFilter === 'dismissed' ? 'No dismissed insights' : 'All caught up!'}
+              {viewFilter === 'dismissed' ? t('ii.emptyDismissed') : t('ii.emptyActive')}
             </h3>
             <p className="insight-empty-state-text">
               {viewFilter === 'dismissed'
-                ? 'Insights you dismiss will appear here for reference.'
-                : 'No new insights for this period. Check back later for updates.'}
+                ? t('ii.emptyDismissedText')
+                : t('ii.emptyActiveText')}
             </p>
           </div>
         ) : (

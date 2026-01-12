@@ -1,17 +1,12 @@
+'use client';
+
 import { DecisionState } from '../types';
 import { FileText, CheckCircle, XCircle, AlertTriangle, Info } from 'react-feather';
+import { useLanguage } from '../context/LanguageContext';
 
 interface StatusBadgeProps {
   status: DecisionState;
 }
-
-const statusConfig: Record<DecisionState, { label: string; message: string; color: string }> = {
-  pending: { label: 'Pending', message: 'Waiting for a human decision', color: '#6B7280' },
-  processing: { label: 'Processing', message: 'Processing your decision', color: '#6B7280' },
-  approved: { label: 'Approved', message: 'Decision completed successfully', color: '#16a34a' },
-  rejected: { label: 'Rejected', message: 'Decision rejected', color: '#dc2626' },
-  under_review: { label: 'Under review', message: 'The case will remain pending until a decision is made.', color: '#F59E0B' },
-};
 
 function StatusIcon({ status, color }: { status: DecisionState; color: string }) {
   const props = { size: 16, color };
@@ -31,6 +26,16 @@ function StatusIcon({ status, color }: { status: DecisionState; color: string })
 }
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
+  const { t } = useLanguage();
+
+  const statusConfig: Record<DecisionState, { label: string; message: string; color: string }> = {
+    pending: { label: t('dr.pending'), message: t('dr.awaitingDecision'), color: '#6B7280' },
+    processing: { label: t('dr.processing'), message: t('dr.processing'), color: '#6B7280' },
+    approved: { label: t('dr.approved'), message: t('dr.decisionRecorded'), color: '#16a34a' },
+    rejected: { label: t('dr.rejected'), message: t('dr.decisionRecorded'), color: '#dc2626' },
+    under_review: { label: t('dr.underReview'), message: t('dr.escalatedForReview'), color: '#F59E0B' },
+  };
+
   const config = statusConfig[status];
 
   return (

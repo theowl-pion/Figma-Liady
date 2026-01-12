@@ -1,4 +1,7 @@
+'use client';
+
 import { ConfidenceLevel } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ConfidenceBadgeProps {
   level: ConfidenceLevel;
@@ -11,11 +14,12 @@ const confidenceColors: Record<ConfidenceLevel, string> = {
 };
 
 export default function ConfidenceBadge({ level }: ConfidenceBadgeProps) {
+  const { t } = useLanguage();
   const color = confidenceColors[level];
 
   return (
     <span className="confidence-score" style={{ color }}>
-      Confidence score - {level}
+      {t('ii.confidenceScore')} - {level}
     </span>
   );
 }

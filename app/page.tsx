@@ -1,9 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { FileText, Inbox, X } from 'react-feather';
+import { FileText, Inbox, X, User } from 'react-feather';
 import NavigationCard from './components/NavigationCard';
 import CaseStudyModal from './components/CaseStudyModal';
+import CVModal from './components/CVModal';
+import LanguageToggle from './components/LanguageToggle';
+import { useLanguage } from './context/LanguageContext';
 
 const personalProjects = [
   { name: 'Vederian', url: 'https://www.vederian.com/' },
@@ -14,46 +17,61 @@ const personalProjects = [
 ];
 
 export default function Home() {
+  const { t } = useLanguage();
   const [caseStudyModal, setCaseStudyModal] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewName, setPreviewName] = useState<string>('');
+  const [showCV, setShowCV] = useState(false);
 
   return (
     <div className="landing-container">
+      <div className="top-right-actions">
+        <button className="cv-btn" onClick={() => setShowCV(true)}>
+          <User size={14} />
+          Curriculum
+        </button>
+        <LanguageToggle />
+      </div>
       <header className="landing-header">
-        <h1 className="landing-title">Hi, I'm Fouad.</h1>
+        <h1 className="landing-title">{t('landing.greeting')}</h1>
         <p className="landing-subtitle">
-          I design product interfaces for complex systems, where clarity, responsibility, and behavior really matter.
+          {t('landing.intro1')}
         </p>
         <p className="landing-subtitle">
-          With a background in front-end development, I focus on state-driven interfaces and decision-heavy workflows.
+          {t('landing.intro2')}
         </p>
       </header>
 
       <main className="landing-main">
         <div className="nav-cards-grid">
           <NavigationCard
-            title="Regulated AI Decision Interface"
-            description="A high-stakes AI decision interface where humans remain fully responsible. Designed to make uncertainty visible, enforce clear state transitions, and support correct decision-making in regulated environments."
+            title={t('project1.title')}
+            description={t('project1.description')}
             href="/decision-review"
             icon={<FileText size={24} />}
             figmaUrl="https://www.figma.com/design/fKbJQ5OSbDAPNCZ9RNdGPj/Regulated-AI-Decision-System?node-id=8-34&t=n6RYNyai18GpuDgO-1"
             onCaseStudy={() => setCaseStudyModal('AI Decision Review')}
+            caseStudyLabel={t('btn.caseStudy')}
+            figmaLabel={t('btn.figma')}
+            openProjectLabel={t('btn.openProject')}
           />
 
           <NavigationCard
-            title="AI Insight Inbox"
-            description="A calm, single-page interface for reviewing AI-generated insights. Designed to help users understand what changed and why, without forcing decisions or overwhelming them with data."
+            title={t('project2.title')}
+            description={t('project2.description')}
             href="/insight-inbox"
             icon={<Inbox size={24} />}
             figmaUrl="https://www.figma.com/design/avJe5YBThCuhCjEbLerPWz/AI-Insight-Inbox?node-id=5-89&t=4aW7lBG0MAlfW6uN-1"
             onCaseStudy={() => setCaseStudyModal('Insight Inbox')}
+            caseStudyLabel={t('btn.caseStudy')}
+            figmaLabel={t('btn.figma')}
+            openProjectLabel={t('btn.openProject')}
           />
         </div>
       </main>
 
       <section className="personal-projects-section">
-        <h2 className="personal-projects-title">Development Work</h2>
+        <h2 className="personal-projects-title">{t('landing.devWork')}</h2>
         <div className="personal-projects-grid">
           {personalProjects.map((project) => (
             <button
@@ -77,6 +95,8 @@ export default function Home() {
         />
       )}
 
+      {showCV && <CVModal onClose={() => setShowCV(false)} />}
+
       {previewUrl && (
         <div className="desktop-preview-overlay" onClick={() => setPreviewUrl(null)}>
           <div className="desktop-preview-modal" onClick={(e) => e.stopPropagation()}>
@@ -89,7 +109,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="desktop-preview-link"
                 >
-                  Open in new tab
+                  {t('btn.openInNewTab')}
                 </a>
                 <button
                   className="desktop-preview-close"

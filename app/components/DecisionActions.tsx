@@ -1,5 +1,8 @@
+'use client';
+
 import { DecisionState, ActionType } from '../types';
 import { XCircle, CheckCircle, AlertTriangle, Info } from 'react-feather';
+import { useLanguage } from '../context/LanguageContext';
 
 interface DecisionActionsProps {
   status: DecisionState;
@@ -7,14 +10,15 @@ interface DecisionActionsProps {
 }
 
 export default function DecisionActions({ status, onAction }: DecisionActionsProps) {
+  const { t } = useLanguage();
   const isDisabled = status !== 'pending';
   const isProcessing = status === 'processing';
 
   return (
     <div className="card decision-actions">
-      <h2 className="card-title">Your Decision</h2>
+      <h2 className="card-title">{t('dr.decisionSection')}</h2>
       <p className="decision-disclaimer">
-        By approving or rejecting this recommendation, you confirm that you have reviewed the AI output and take responsibility for the final decision.
+        {t('dr.decisionDisclaimer')}
       </p>
 
       <div className="action-buttons">
@@ -24,7 +28,7 @@ export default function DecisionActions({ status, onAction }: DecisionActionsPro
           disabled={isDisabled}
         >
           <XCircle size={16} />
-          {isProcessing ? 'Processing...' : 'Reject Recommendation'}
+          {isProcessing ? t('dr.processing') + '...' : t('dr.reject')}
         </button>
 
         <button
@@ -33,7 +37,7 @@ export default function DecisionActions({ status, onAction }: DecisionActionsPro
           disabled={isDisabled}
         >
           <AlertTriangle size={16} />
-          {isProcessing ? 'Processing...' : 'Request review'}
+          {isProcessing ? t('dr.processing') + '...' : t('dr.requestReview')}
         </button>
 
         <button
@@ -42,13 +46,13 @@ export default function DecisionActions({ status, onAction }: DecisionActionsPro
           disabled={isDisabled}
         >
           <CheckCircle size={16} />
-          {isProcessing ? 'Processing...' : 'Approve Recommendation'}
+          {isProcessing ? t('dr.processing') + '...' : t('dr.approve')}
         </button>
       </div>
 
       <p className="action-hint">
         <Info size={16} color="#9CA3AF" />
-        If you're unsure, you can request a review from a senior role. The case will remain pending until a decision is made.
+        {t('dr.actionHint')}
       </p>
     </div>
   );

@@ -1,4 +1,7 @@
+'use client';
+
 import { Insight } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface DetailsModalProps {
   insight: Insight;
@@ -6,6 +9,7 @@ interface DetailsModalProps {
 }
 
 export default function DetailsModal({ insight, onClose }: DetailsModalProps) {
+  const { t } = useLanguage();
   const { title, supportingSignals, nextStep } = insight;
 
   return (
@@ -14,7 +18,7 @@ export default function DetailsModal({ insight, onClose }: DetailsModalProps) {
         <h2 className="insight-modal-title">{title}</h2>
 
         <div className="insight-modal-section">
-          <h4 className="insight-modal-section-title">Supporting Signals:</h4>
+          <h4 className="insight-modal-section-title">{t('ii.supportingSignals')}:</h4>
           <ul className="insight-modal-signals">
             {supportingSignals.map((signal, index) => (
               <li key={index}>{signal}</li>
@@ -24,12 +28,12 @@ export default function DetailsModal({ insight, onClose }: DetailsModalProps) {
 
         {nextStep && (
           <p className="insight-modal-next-step">
-            <strong>Next step:</strong> {nextStep}
+            <strong>{t('ii.suggestedNextStep')}:</strong> {nextStep}
           </p>
         )}
 
         <button className="insight-modal-close-btn" onClick={onClose}>
-          Close
+          {t('btn.close')}
         </button>
       </div>
     </div>

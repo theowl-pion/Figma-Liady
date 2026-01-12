@@ -1,5 +1,8 @@
+'use client';
+
 import { Insight, InsightStatus } from '../types';
 import ConfidenceBadge from './ConfidenceBadge';
+import { useLanguage } from '../context/LanguageContext';
 
 interface InsightCardProps {
   insight: Insight;
@@ -8,15 +11,16 @@ interface InsightCardProps {
   onViewDetails: (id: string) => void;
 }
 
-const statusLabels: Record<InsightStatus, string> = {
-  new: 'New',
-  saved: 'Saved',
-  dismissed: 'Dismissed',
-};
-
 export default function InsightCard({ insight, onSave, onDismiss, onViewDetails }: InsightCardProps) {
+  const { t } = useLanguage();
   const { id, title, summary, confidence, status } = insight;
   const isDismissed = status === 'dismissed';
+
+  const statusLabels: Record<InsightStatus, string> = {
+    new: t('ii.new'),
+    saved: t('ii.saved'),
+    dismissed: t('ii.dismissed'),
+  };
 
   return (
     <div className={`insight-card ${isDismissed ? 'insight-card--dismissed' : ''}`}>
@@ -34,14 +38,14 @@ export default function InsightCard({ insight, onSave, onDismiss, onViewDetails 
       <div className="insight-card-actions">
         {status === 'new' && (
           <button className="insight-btn insight-btn--primary" onClick={() => onSave(id)}>
-            Save
+            {t('ii.save')}
           </button>
         )}
         <button className="insight-btn insight-btn--secondary" onClick={() => onDismiss(id)}>
-          Dismiss
+          {t('ii.dismiss')}
         </button>
         <button className="insight-btn insight-btn--text" onClick={() => onViewDetails(id)}>
-          View Details
+          {t('ii.viewDetails')}
         </button>
       </div>
     </div>

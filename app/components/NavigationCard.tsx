@@ -8,6 +8,9 @@ interface NavigationCardProps {
   icon: React.ReactNode;
   figmaUrl?: string;
   onCaseStudy?: () => void;
+  caseStudyLabel?: string;
+  figmaLabel?: string;
+  openProjectLabel?: string;
 }
 
 export default function NavigationCard({
@@ -16,7 +19,10 @@ export default function NavigationCard({
   href,
   icon,
   figmaUrl,
-  onCaseStudy
+  onCaseStudy,
+  caseStudyLabel = 'Case Study',
+  figmaLabel = 'Figma',
+  openProjectLabel = 'Open Project'
 }: NavigationCardProps) {
   return (
     <div className="nav-card">
@@ -33,7 +39,7 @@ export default function NavigationCard({
           className="nav-card-btn nav-card-btn--secondary"
           onClick={onCaseStudy}
         >
-          Case Study
+          {caseStudyLabel}
         </button>
         {figmaUrl && (
           <a
@@ -42,12 +48,12 @@ export default function NavigationCard({
             rel="noopener noreferrer"
             className="nav-card-btn nav-card-btn--secondary"
           >
-            Figma
+            {figmaLabel}
             <ExternalLink size={14} />
           </a>
         )}
         <Link href={href} className="nav-card-btn nav-card-btn--primary">
-          Open Project
+          {openProjectLabel}
           <ArrowRight size={14} />
         </Link>
       </div>

@@ -8,8 +8,11 @@ import AIRecommendationCard from '../components/AIRecommendationCard';
 import ExplanationSection from '../components/ExplanationSection';
 import DecisionActions from '../components/DecisionActions';
 import ConfirmationModal from '../components/ConfirmationModal';
+import LanguageToggle from '../components/LanguageToggle';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function DecisionReviewPage() {
+  const { t } = useLanguage();
   const [status, setStatus] = useState<DecisionState>('pending');
   const [modalAction, setModalAction] = useState<ActionType | null>(null);
 
@@ -44,19 +47,20 @@ export default function DecisionReviewPage() {
 
   return (
     <div className="container">
+      <LanguageToggle />
       <header className="header">
         <div className="header-left">
           <div className="title-row">
-            <h1 className="page-title">AI Decision Review</h1>
+            <h1 className="page-title">{t('dr.title')}</h1>
             {status !== 'pending' && (
               <button className="reset-btn" onClick={handleReset} title="Reset to pending">
                 <RefreshCw size={14} />
-                Reset
+                {t('dr.reset')}
               </button>
             )}
           </div>
           <div className="case-meta">
-            <span>Case ID: A-2391</span>
+            <span>{t('dr.caseId')}: A-2391</span>
             <span>Assigned role: Analyst</span>
             <span>Created: 12 Mar 2024</span>
           </div>
