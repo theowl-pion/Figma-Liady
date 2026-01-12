@@ -16,9 +16,9 @@ export default function DecisionActions({ status, onAction }: DecisionActionsPro
 
   return (
     <div className="card decision-actions">
-      <h2 className="card-title">{t('dr.decisionSection')}</h2>
+      <h2 className="card-title">{t('dr.yourDecision')}</h2>
       <p className="decision-disclaimer">
-        {t('dr.decisionDisclaimer')}
+        {t('dr.disclaimer')}
       </p>
 
       <div className="action-buttons">
@@ -28,7 +28,7 @@ export default function DecisionActions({ status, onAction }: DecisionActionsPro
           disabled={isDisabled}
         >
           <XCircle size={16} />
-          {isProcessing ? t('dr.processing') + '...' : t('dr.reject')}
+          {isProcessing ? t('dr.processing') : t('dr.rejectRecommendation')}
         </button>
 
         <button
@@ -37,7 +37,7 @@ export default function DecisionActions({ status, onAction }: DecisionActionsPro
           disabled={isDisabled}
         >
           <AlertTriangle size={16} />
-          {isProcessing ? t('dr.processing') + '...' : t('dr.requestReview')}
+          {isProcessing ? t('dr.processing') : t('dr.requestReview')}
         </button>
 
         <button
@@ -46,7 +46,7 @@ export default function DecisionActions({ status, onAction }: DecisionActionsPro
           disabled={isDisabled}
         >
           <CheckCircle size={16} />
-          {isProcessing ? t('dr.processing') + '...' : t('dr.approve')}
+          {isProcessing ? t('dr.processing') : t('dr.approveRecommendation')}
         </button>
       </div>
 

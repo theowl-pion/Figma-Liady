@@ -20,29 +20,6 @@ const reviewers = [
 
 export default function ConfirmationModal({ action, onConfirm, onClose }: ConfirmationModalProps) {
   const { t } = useLanguage();
-
-  const modalContent: Record<ActionType, { title: string; message: string; confirmLabel: string; confirmClass: string }> = {
-    approve: {
-      title: t('dr.confirmApprove'),
-      message: t('dr.approveMessage'),
-      confirmLabel: t('dr.approveBtn'),
-      confirmClass: 'btn-approve',
-    },
-    reject: {
-      title: t('dr.confirmReject'),
-      message: t('dr.rejectMessage'),
-      confirmLabel: t('dr.rejectBtn'),
-      confirmClass: 'btn-reject',
-    },
-    review: {
-      title: t('dr.confirmReview'),
-      message: t('dr.reviewMessage'),
-      confirmLabel: t('dr.reviewBtn'),
-      confirmClass: 'btn-review-confirm',
-    },
-  };
-
-  const content = modalContent[action];
   const [selectedReviewer, setSelectedReviewer] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -51,6 +28,29 @@ export default function ConfirmationModal({ action, onConfirm, onClose }: Confir
   const canConfirm = !isReviewAction || selectedReviewer !== '';
 
   const selectedReviewerData = reviewers.find(r => r.id === selectedReviewer);
+
+  const modalContent: Record<ActionType, { title: string; message: string; confirmLabel: string; confirmClass: string }> = {
+    approve: {
+      title: t('dr.modal.approveTitle'),
+      message: t('dr.modal.approveMsg'),
+      confirmLabel: t('dr.approveRecommendation'),
+      confirmClass: 'btn-approve',
+    },
+    reject: {
+      title: t('dr.modal.rejectTitle'),
+      message: t('dr.modal.rejectMsg'),
+      confirmLabel: t('dr.rejectRecommendation'),
+      confirmClass: 'btn-reject',
+    },
+    review: {
+      title: t('dr.modal.reviewTitle'),
+      message: t('dr.modal.reviewMsg'),
+      confirmLabel: t('dr.requestReview'),
+      confirmClass: 'btn-review-confirm',
+    },
+  };
+
+  const content = modalContent[action];
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function ConfirmationModal({ action, onConfirm, onClose }: Confir
 
         {isReviewAction && (
           <div className="reviewer-select-container">
-            <label className="reviewer-label">{t('dr.selectReviewer')}</label>
+            <label className="reviewer-label">{t('dr.modal.selectReviewer')}</label>
             <div className="custom-dropdown" ref={dropdownRef}>
               <button
                 type="button"
@@ -95,7 +95,7 @@ export default function ConfirmationModal({ action, onConfirm, onClose }: Confir
                     <span className="dropdown-selected-role">{selectedReviewerData.role}</span>
                   </span>
                 ) : (
-                  <span className="dropdown-placeholder">{t('dr.chooseReviewer')}</span>
+                  <span className="dropdown-placeholder">{t('dr.modal.chooseReviewer')}</span>
                 )}
                 <ChevronDown size={16} className={`dropdown-chevron ${isDropdownOpen ? 'dropdown-chevron--open' : ''}`} />
               </button>

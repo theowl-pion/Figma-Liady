@@ -11,13 +11,13 @@ export default function ExplanationSection() {
   return (
     <div className="card explanation-section">
       <div className="explanation-header">
-        <h2 className="card-title">{expanded ? t('dr.keyFactors') : t('dr.explanation')}</h2>
+        <h2 className="card-title">{expanded ? t('dr.detailedData') : t('dr.explanation')}</h2>
         <button
           className={`view-detailed-btn ${expanded ? 'view-detailed-btn--close' : ''}`}
           onClick={() => setExpanded(!expanded)}
         >
           <AlertTriangle size={16} />
-          {expanded ? t('dr.hideDetailed') : t('dr.viewDetailed')}
+          {expanded ? t('dr.closeDetailed') : t('dr.viewDetailed')}
         </button>
       </div>
 
@@ -29,7 +29,11 @@ export default function ExplanationSection() {
 
       <div className={`explanation-expanded-content ${expanded ? 'explanation-expanded-content--visible' : 'explanation-expanded-content--hidden'}`}>
         <p className="explanation-text">
-          {t('dr.explanationText')}
+          {t('dr.detailedText1')}
+        </p>
+
+        <p className="explanation-text" style={{ marginTop: '16px' }}>
+          {t('dr.detailedText2')}
         </p>
 
         <ul className="explanation-factors" style={{ marginTop: '16px' }}>

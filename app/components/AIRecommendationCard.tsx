@@ -12,15 +12,15 @@ export default function AIRecommendationCard() {
         <h2 className="card-title">{t('dr.aiRecommendation')}</h2>
         <div className="confidence-badge">
           <Info size={16} color="#F59E0B" />
-          <span className="confidence-label">{t('dr.confidence')}: Low</span>
+          <span className="confidence-label">{t('dr.lowConfidence')}</span>
           <span className="confidence-divider">|</span>
           <Info size={16} color="#9CA3AF" />
-          <span className="confidence-message">{t('dr.confidenceNote')}</span>
+          <span className="confidence-message">{t('dr.aiUncertain')}</span>
         </div>
       </div>
 
       <div className="risk-banner">
-        <span className="risk-label">{t('dr.risk')}</span>
+        <span className="risk-label">{t('dr.highRisk')} :</span>
         <span className="risk-text">{t('dr.riskText')}</span>
       </div>
 

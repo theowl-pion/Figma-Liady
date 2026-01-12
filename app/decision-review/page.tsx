@@ -8,7 +8,6 @@ import AIRecommendationCard from '../components/AIRecommendationCard';
 import ExplanationSection from '../components/ExplanationSection';
 import DecisionActions from '../components/DecisionActions';
 import ConfirmationModal from '../components/ConfirmationModal';
-import LanguageToggle from '../components/LanguageToggle';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function DecisionReviewPage() {
@@ -47,13 +46,12 @@ export default function DecisionReviewPage() {
 
   return (
     <div className="container">
-      <LanguageToggle />
       <header className="header">
         <div className="header-left">
           <div className="title-row">
             <h1 className="page-title">{t('dr.title')}</h1>
             {status !== 'pending' && (
-              <button className="reset-btn" onClick={handleReset} title="Reset to pending">
+              <button className="reset-btn" onClick={handleReset} title={t('dr.reset')}>
                 <RefreshCw size={14} />
                 {t('dr.reset')}
               </button>
@@ -61,8 +59,8 @@ export default function DecisionReviewPage() {
           </div>
           <div className="case-meta">
             <span>{t('dr.caseId')}: A-2391</span>
-            <span>Assigned role: Analyst</span>
-            <span>Created: 12 Mar 2024</span>
+            <span>{t('dr.assignedRole')}: {t('dr.analyst')}</span>
+            <span>{t('dr.created')}: 12 Mar 2024</span>
           </div>
         </div>
         <StatusBadge status={status} />

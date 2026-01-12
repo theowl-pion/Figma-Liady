@@ -29,11 +29,11 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
   const { t } = useLanguage();
 
   const statusConfig: Record<DecisionState, { label: string; message: string; color: string }> = {
-    pending: { label: t('dr.pending'), message: t('dr.awaitingDecision'), color: '#6B7280' },
-    processing: { label: t('dr.processing'), message: t('dr.processing'), color: '#6B7280' },
-    approved: { label: t('dr.approved'), message: t('dr.decisionRecorded'), color: '#16a34a' },
-    rejected: { label: t('dr.rejected'), message: t('dr.decisionRecorded'), color: '#dc2626' },
-    under_review: { label: t('dr.underReview'), message: t('dr.escalatedForReview'), color: '#F59E0B' },
+    pending: { label: t('dr.status.pending'), message: t('dr.status.pendingMsg'), color: '#6B7280' },
+    processing: { label: t('dr.status.processing'), message: t('dr.status.processingMsg'), color: '#6B7280' },
+    approved: { label: t('dr.status.approved'), message: t('dr.status.approvedMsg'), color: '#16a34a' },
+    rejected: { label: t('dr.status.rejected'), message: t('dr.status.rejectedMsg'), color: '#dc2626' },
+    under_review: { label: t('dr.status.underReview'), message: t('dr.status.underReviewMsg'), color: '#F59E0B' },
   };
 
   const config = statusConfig[status];
