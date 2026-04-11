@@ -9,10 +9,10 @@ import LanguageToggle from './components/LanguageToggle';
 import { useLanguage } from './context/LanguageContext';
 
 const personalProjects = [
-  { name: 'Vederian', url: 'https://www.vederian.com/' },
-  { name: 'Qosmia', url: 'https://www.qosmia.it/' },
-  { name: 'Qolokio', url: 'https://www.qolokio.com/' },
-  { name: 'Intervueo', url: 'https://www.intervueo.com/' },
+  { name: 'Vederian', url: 'https://vederian.vercel.app/' },
+  { name: 'Intervueo', url: 'https://www.intervueo.xyz/' },
+  { name: 'Iotutela', url: 'https://iotutela.it/' },
+  { name: 'Qrtaap', url: 'https://qrtaap.vercel.app/' },
   { name: 'Data Story', url: 'https://data-pion.vercel.app/projects/data-story-video-system' },
 ];
 
