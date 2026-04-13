@@ -46,7 +46,7 @@ export default function NavigationCard({
             href={figmaUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="nav-card-btn nav-card-btn--secondary"
+            className="nav-card-btn nav-card-btn--secondary nav-card-btn--figma"
           >
             {figmaLabel}
             <ExternalLink size={14} />

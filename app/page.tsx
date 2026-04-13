@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FileText, Inbox, X, User } from 'react-feather';
 import NavigationCard from './components/NavigationCard';
 import CaseStudyModal from './components/CaseStudyModal';
@@ -22,6 +22,15 @@ export default function Home() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewName, setPreviewName] = useState<string>('');
   const [showCV, setShowCV] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener('change', update);
+    return () => mql.removeEventListener('change', update);
+  }, []);
 
   return (
     <div className="landing-container">
@@ -78,6 +87,10 @@ export default function Home() {
               key={project.name}
               className="personal-project-btn"
               onClick={() => {
+                if (isMobile) {
+                  window.open(project.url, '_blank', 'noopener,noreferrer');
+                  return;
+                }
                 setPreviewUrl(project.url);
                 setPreviewName(project.name);
               }}

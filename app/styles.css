@@ -1593,7 +1593,13 @@ body {
 /* Responsive - Small Tablet */
 @media (max-width: 768px) {
   .landing-container {
-    padding: 40px 16px;
+    padding: 72px 16px 40px;
+  }
+
+  .top-right-actions {
+    top: 12px;
+    right: 12px;
+    gap: 8px;
   }
 
   .landing-title {
@@ -1614,6 +1620,19 @@ body {
 
   .nav-card {
     padding: 20px;
+  }
+
+  .personal-projects-section {
+    margin-top: 40px;
+  }
+
+  .personal-project-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .nav-card-btn--figma {
+    display: none;
   }
 
   .insight-inbox-container {
@@ -1699,7 +1718,7 @@ body {
 /* Responsive - Mobile */
 @media (max-width: 480px) {
   .landing-container {
-    padding: 32px 12px;
+    padding: 64px 12px 32px;
   }
 
   .landing-title {
@@ -1708,6 +1727,18 @@ body {
 
   .landing-subtitle {
     font-size: 13px;
+  }
+
+  .landing-header {
+    margin-bottom: 32px;
+  }
+
+  .nav-cards-grid {
+    gap: 16px;
+  }
+
+  .personal-projects-grid {
+    gap: 8px;
   }
 
   .nav-card {
